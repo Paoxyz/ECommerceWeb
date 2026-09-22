@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nomad Supply Co. — Analog Photography Goods</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    --ink: #1C1B19;
+    --ink-soft: #4A4640;
+    --paper: #EAE3D3;
+    --paper-hi: #F7F3E8;
+    --safelight: #A5382C;
+    --safelight-hi: #C24A3B;
+    --brass: #9C824F;
+    --sage: #626F58;
+    --line: rgba(28,27,25,0.16);
+    --card: #F2ECDE;
+    --shadow: rgba(28,27,25,0.14);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #EDE7D8;
+      --ink-soft: #C7C0AE;
+      --paper: #17140F;
+      --paper-hi: #1E1A14;
+      --card: #211D16;
+      --line: rgba(237,231,216,0.14);
+      --shadow: rgba(0,0,0,0.5);
+      --safelight: #C24A3B;
+      --safelight-hi: #DE6C55;
+      --brass: #C7AD78;
+      --sage: #8B9A7C;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #EDE7D8;
+    --ink-soft: #C7C0AE;
+    --paper: #17140F;
+    --paper-hi: #1E1A14;
+    --card: #211D16;
+    --line: rgba(237,231,216,0.14);
+    --shadow: rgba(0,0,0,0.5);
+    --safelight: #C24A3B;
+    --safelight-hi: #DE6C55;
+    --brass: #C7AD78;
+    --sage: #8B9A7C;
+  }
+
+  html, body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { min-height: 100%; }
+
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  a { color: inherit; }
+  button { font-family: inherit; cursor: pointer; }
+
+  /* ---------- Header ---------- */
+  header.site {
+    position: sticky;
+    top: 0;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 40;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: env(safe-area-inset-top, 0px) 0 0 0;
+  }
+  .site-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .wordmark {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+  .wordmark .mark {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--safelight);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .wordmark .mark svg { width: 16px; height: 16px; }
+  .wordmark .name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.28rem;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .searchwrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--paper-hi);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 9px 13px;
+    max-width: 480px;
+  }
+  .searchwrap svg { width: 16px; height: 16px; color: var(--ink-soft); flex-shrink: 0; }
+  .searchwrap input {
+    border: none; background: transparent; outline: none;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ink);
+    width: 100%;
+  }
+  .searchwrap input::placeholder { color: var(--ink-soft); }
+
+  .cart-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    flex-shrink: 0;
+    transition: border-color 0.15s ease;
+  }
+  .cart-btn:hover { border-color: var(--brass); }
+  .cart-btn svg { width: 17px; height: 17px; }
+  .cart-count {
+    background: var(--safelight);
+    color: #fff;
+    min-width: 18px; height: 18px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 56px 24px 44px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 4.2vw, 3.4rem);
+    line-height: 1.05;
+    max-width: 11ch;
+  }
+  .hero p.sub {
+    margin-top: 18px;
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+    line-height: 1.55;
+  }
+  .hero-tags {
+    margin-top: 26px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .hero-tags button {
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    transition: all 0.15s ease;
+  }
+  .hero-tags button:hover { color: var(--ink); border-color: var(--brass); }
+
+  .filmstrip {
+    position: relative;
+    height: 230px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .filmstrip .band {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      100deg,
+      var(--safelight) 0px, var(--safelight) 60px,
+      #7C2E24 60px, #7C2E24 120px,
+      var(--brass) 120px, var(--brass) 180px,
+      var(--sage) 180px, var(--sage) 240px
+    );
+    opacity: 0.9;
+  }
+  .filmstrip .sprockets {
+    position: absolute; left: 0; right: 0; top: 14px;
+    display: flex; justify-content: space-between; padding: 0 14px;
+  }
+  .filmstrip .sprockets.bottom { top: auto; bottom: 14px; }
+  .filmstrip .sprockets span {
+    width: 12px; height: 9px;
+    background: var(--paper);
+    border-radius: 2px;
+  }
+  .filmstrip .frame-label {
+    position: absolute; left: 20px; bottom: 34px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--paper-hi);
+    background: rgba(0,0,0,0.32);
+    padding: 4px 9px;
+    border-radius: 4px;
+  }
+
+  /* ---------- Layout ---------- */
+  .shop {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 8px 24px 90px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 40px;
+  }
+  aside.filters {
+    position: sticky;
+    top: 84px;
+    align-self: start;
+    height: fit-content;
+  }
+  .filter-group { margin-bottom: 30px; }
+  .filter-group h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .filter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 7px 0;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--ink-soft);
+  }
+  .filter-row.active { color: var(--ink); font-weight: 500; }
+  .filter-row .count { font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem; opacity: 0.7; }
+  .filter-row input { accent-color: var(--safelight); width: 15px; height: 15px; }
+  .filter-row .label-inline { display: flex; align-items: center; gap: 9px; }
+
+  .price-slider { padding-top: 4px; }
+  .price-slider input[type=range] { width: 100%; accent-color: var(--safelight); }
+  .price-slider .val { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--ink-soft); margin-top: 6px; }
+
+  .clear-filters {
+    background: none;
+    border: none;
+    color: var(--safelight);
+    font-size: 0.82rem;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .shop-main .toolbar {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .toolbar .count-label { font-size: 0.88rem; color: var(--ink-soft); }
+  .toolbar .count-label strong { color: var(--ink); font-weight: 600; }
+  .sort-select {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.85rem;
+    background: var(--paper-hi);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 7px 10px;
+    color: var(--ink);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 22px;
+  }
+
+  .pcard {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .pcard:hover { box-shadow: 0 8px 22px var(--shadow); transform: translateY(-2px); }
+  .pcard .thumb {
+    aspect-ratio: 1 / 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pcard .thumb svg { width: 46%; height: 46%; }
+  .pcard .body { padding: 13px 14px 15px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .pcard .cat-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; color: var(--ink-soft); letter-spacing: 0.02em; }
+  .pcard .pname { font-size: 0.96rem; font-weight: 500; line-height: 1.3; }
+  .pcard .price-row { margin-top: auto; padding-top: 8px; display: flex; align-items: center; justify-content: space-between; }
+  .pcard .price { font-family: 'IBM Plex Mono', monospace; font-size: 0.94rem; font-weight: 500; }
+  .pcard .add-btn {
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    width: 30px; height: 30px;
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+  }
+  .pcard .add-btn:hover { background: var(--safelight); }
+  .pcard .add-btn svg { width: 15px; height: 15px; }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 70px 20px;
+    color: var(--ink-soft);
+  }
+  .empty-state h3 { margin-bottom: 8px; color: var(--ink); }
+
+  /* ---------- Modal (product detail) ---------- */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(20,18,14,0.5);
+    z-index: 90;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .overlay.show { display: flex; }
+  .modal {
+    background: var(--paper-hi);
+    border-radius: 14px;
+    max-width: 720px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 620px) { .modal { grid-template-columns: 1fr; } }
+  .modal .visual { background: var(--card); display: flex; align-items: center; justify-content: center; min-height: 240px; position: relative; }
+  .modal .visual svg { width: 40%; height: 40%; }
+  .modal .close-x {
+    position: absolute; top: 12px; right: 12px;
+    background: rgba(20,18,14,0.5); border: none; color: #fff;
+    width: 30px; height: 30px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal .info { padding: 28px; display: flex; flex-direction: column; }
+  .modal .cat-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--ink-soft); margin-bottom: 8px; }
+  .modal h2 { font-size: 1.5rem; margin-bottom: 10px; }
+  .modal .desc { color: var(--ink-soft); font-size: 0.92rem; line-height: 1.6; margin-bottom: 18px; }
+  .modal .price { font-family: 'IBM Plex Mono', monospace; font-size: 1.2rem; margin-bottom: 22px; }
+  .modal .spec-list { list-style: none; padding: 0; margin: 0 0 24px; font-size: 0.85rem; color: var(--ink-soft); display: flex; flex-direction: column; gap: 6px; }
+  .modal .spec-list li { display: flex; justify-content: space-between; border-bottom: 1px dashed var(--line); padding-bottom: 6px; }
+  .modal .add-cta {
+    margin-top: auto;
+    background: var(--safelight);
+    color: #fff;
+    border: none;
+    padding: 13px 18px;
+    border-radius: 8px;
+    font-size: 0.94rem;
+    font-weight: 500;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .modal .add-cta:hover { background: var(--safelight-hi); }
+
+  /* ---------- Cart drawer ---------- */
+  .cart-scrim {
+    position: fixed; inset: 0; background: rgba(20,18,14,0.4);
+    z-index: 95; display: none;
+  }
+  .cart-scrim.show { display: block; }
+  .drawer {
+    position: fixed; top: 0; right: -420px; bottom: 0;
+    width: 400px; max-width: 92vw;
+    background: var(--paper-hi);
+    z-index: 96;
+    box-shadow: -12px 0 30px var(--shadow);
+    display: flex; flex-direction: column;
+    transition: right 0.28s cubic-bezier(.2,.8,.2,1);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .drawer.show { right: 0; }
+  .drawer-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 22px; border-bottom: 1px solid var(--line);
+  }
+  .drawer-head h2 { font-size: 1.15rem; }
+  .drawer-head button { background: none; border: none; color: var(--ink-soft); }
+  .drawer-head button svg { width: 20px; height: 20px; }
+  .drawer-items { flex: 1; overflow-y: auto; padding: 10px 22px; }
+  .cart-row { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .cart-row .thumb-sm { width: 56px; height: 56px; border-radius: 7px; background: var(--card); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .cart-row .thumb-sm svg { width: 55%; height: 55%; }
+  .cart-row .meta { flex: 1; min-width: 0; }
+  .cart-row .meta .nm { font-size: 0.88rem; font-weight: 500; margin-bottom: 3px; }
+  .cart-row .meta .pr { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: var(--ink-soft); }
+  .qty-ctrl { display: flex; align-items: center; gap: 9px; margin-top: 8px; }
+  .qty-ctrl button { width: 22px; height: 22px; border-radius: 5px; border: 1px solid var(--line); background: none; color: var(--ink); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+  .qty-ctrl .qn { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; min-width: 14px; text-align: center; }
+  .remove-btn { background: none; border: none; color: var(--ink-soft); font-size: 0.76rem; text-decoration: underline; text-underline-offset: 2px; padding: 0; margin-top: 6px; }
+
+  .drawer-empty { padding: 60px 20px; text-align: center; color: var(--ink-soft); }
+  .drawer-empty svg { width: 40px; height: 40px; margin-bottom: 14px; opacity: 0.5; }
+
+  .drawer-foot { border-top: 1px solid var(--line); padding: 18px 22px; }
+  .drawer-foot .row { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 6px; }
+  .drawer-foot .row.total { color: var(--ink); font-weight: 600; font-size: 1.02rem; margin-top: 8px; }
+  .checkout-btn {
+    width: 100%; margin-top: 14px;
+    background: var(--ink); color: var(--paper);
+    border: none; padding: 14px; border-radius: 8px;
+    font-size: 0.95rem; font-weight: 500;
+  }
+  .checkout-btn:hover { background: var(--safelight); color: #fff; }
+  .demo-note { font-size: 0.72rem; color: var(--ink-soft); text-align: center; margin-top: 10px; }
+
+  /* ---------- Checkout confirm ---------- */
+  .confirm-view { padding: 50px 26px; text-align: center; }
+  .confirm-view .ring { width: 56px; height: 56px; border-radius: 50%; background: var(--sage); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
+  .confirm-view .ring svg { width: 26px; height: 26px; color: #fff; }
+  .confirm-view h3 { font-size: 1.25rem; margin-bottom: 8px; }
+  .confirm-view p { color: var(--ink-soft); font-size: 0.88rem; line-height: 1.55; }
+  .confirm-view .order-id { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; color: var(--brass); margin-top: 12px; }
+  .confirm-view button { margin-top: 26px; background: none; border: 1px solid var(--line); color: var(--ink); padding: 10px 18px; border-radius: 8px; font-size: 0.85rem; }
+
+  footer.site {
+    border-top: 1px solid var(--line);
+    padding: 30px 24px 40px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; }
+    .filmstrip { order: -1; height: 170px; }
+    .shop { grid-template-columns: 1fr; }
+    aside.filters { position: static; }
+    .searchwrap { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-inner">
+    <a class="wordmark" href="#" onclick="return false;">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#EAE3D3" stroke-width="1.8"><circle cx="12" cy="12" r="4.2"/><path d="M4 8h2.4L8 5h8l1.6 3H20a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>
+      </span>
+      <span class="name">Nomad Supply Co.</span>
+    </a>
+    <div class="searchwrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="searchInput" type="text" placeholder="Search film, cameras, gear…" autocomplete="off">
+    </div>
+    <button class="cart-btn" id="cartOpenBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L5 2H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+      <span>Cart</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Gear worth loading film for.</h1>
+    <p class="sub">Cameras, stock, and darkroom tools for people who like the smell of fixer and the wait before the reveal. Hand-picked, shop-tested, restocked weekly.</p>
+    <div class="hero-tags">
+      <button onclick="jumpToCategory('Cameras')">Cameras</button>
+      <button onclick="jumpToCategory('Film')">Film stock</button>
+      <button onclick="jumpToCategory('Darkroom')">Darkroom</button>
+      <button onclick="jumpToCategory('Field Gear')">Field gear</button>
+    </div>
+  </div>
+  <div class="filmstrip">
+    <div class="band"></div>
+    <div class="sprockets">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="sprockets bottom">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="frame-label">FRAME 07 · ISO 400</div>
+  </div>
+</section>
+
+<div class="shop">
+  <aside class="filters">
+    <div class="filter-group">
+      <h3>CATEGORY</h3>
+      <div id="categoryFilters"></div>
+    </div>
+    <div class="filter-group">
+      <h3>MAX PRICE</h3>
+      <div class="price-slider">
+        <input type="range" id="priceRange" min="10" max="520" value="520" step="5">
+        <div class="val" id="priceVal">Up to $520</div>
+      </div>
+    </div>
+    <button class="clear-filters" id="clearFiltersBtn">Clear all filters</button>
+  </aside>
+
+  <main class="shop-main">
+    <div class="toolbar">
+      <div class="count-label"><strong id="resultCount">20</strong> items</div>
+      <select class="sort-select" id="sortSelect">
+        <option value="featured">Sort: Featured</option>
+        <option value="price-asc">Price: Low to high</option>
+        <option value="price-desc">Price: High to low</option>
+        <option value="name-asc">Name: A–Z</option>
+      </select>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </main>
+</div>
+
+<footer class="site">
+  Nomad Supply Co. — a frontend demo store. No real payments are processed.
+</footer>
+
+<!-- Product modal -->
+<div class="overlay" id="productOverlay">
+  <div class="modal" id="productModal"></div>
+</div>
+
+<!-- Cart drawer -->
+<div class="cart-scrim" id="cartScrim"></div>
+<div class="drawer" id="cartDrawer">
+  <div id="drawerContent"></div>
+</div>
+
+<script>
+(function(){
+
+  // ---------- Icon library (category glyphs, inline SVG, tinted via currentColor) ----------
+  const icons = {
+    camera: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="13" r="4"/><path d="M3 8h4l1.6-2.6h6.8L17 8h4a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/></svg>`,
+    film: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3.4"/><path d="M6 3v3M18 3v3M6 18v3M18 18v3"/></svg>`,
+    flask: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3h6M10 3v6l-5.5 9.2A1.5 1.5 0 0 0 5.8 21h12.4a1.5 1.5 0 0 0 1.3-2.8L14 9V3"/><path d="M8 15h8"/></svg>`,
+    bag: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h16l-1.3 12.2a1.5 1.5 0 0 1-1.5 1.3H6.8a1.5 1.5 0 0 1-1.5-1.3L4 8z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg>`
+  };
+  const catIcon = { "Cameras": icons.camera, "Film": icons.film, "Darkroom": icons.flask, "Field Gear": icons.bag };
+  const catAccent = { "Cameras": "var(--safelight)", "Film": "var(--brass)", "Darkroom": "var(--sage)", "Field Gear": "var(--ink-soft)" };
+
+  // ---------- Product data ----------
+  const PRODUCTS = [
+    {id:1, name:"Meridian 35 Rangefinder", cat:"Cameras", price:340, desc:"A fully manual 35mm rangefinder with a bright viewfinder and a fixed 40mm lens tuned for street work.", specs:{"Format":"35mm","Lens":"40mm f/1.9","Weight":"430g","Meter":"Manual, external"}},
+    {id:2, name:"Fieldmark SLR Body", cat:"Cameras", price:410, desc:"An all-mechanical SLR body built for reliability in the field — no batteries required to fire the shutter.", specs:{"Format":"35mm","Mount":"M42 screw","Shutter":"1s–1/1000","Weight":"620g"}},
+    {id:3, name:"Lark Toy Camera", cat:"Cameras", price:38, desc:"A plastic-lens point-and-shoot that leans into vignetting and light leaks instead of hiding them.", specs:{"Format":"35mm","Lens":"Fixed 22mm","Weight":"140g"}},
+    {id:4, name:"Companion Instant Mini", cat:"Cameras", price:79, desc:"Compact instant camera with automatic exposure, built for handing prints out on the spot.", specs:{"Format":"Instant mini","Flash":"Built-in","Weight":"305g"}},
+    {id:5, name:"Twin-Lens Classic", cat:"Cameras", price:520, desc:"A medium-format twin-lens reflex with a waist-level finder, for square frames with real depth.", specs:{"Format":"120 medium","Lens":"75mm f/3.5","Weight":"1050g"}},
+    {id:6, name:"Wanderer Half-Frame", cat:"Cameras", price:150, desc:"Splits a 35mm frame in two, doubling your shots per roll — built for slow, deliberate travel days.", specs:{"Format":"35mm half-frame","Lens":"Fixed 28mm","Weight":"210g"}},
+
+    {id:7, name:"Portra Daylight 400 — 5 pack", cat:"Film", price:58, desc:"Warm, flattering colour negative film balanced for daylight, five rolls to a box.", specs:{"ISO":"400","Rolls":"5","Type":"Colour negative"}},
+    {id:8, name:"Tri-X Monochrome 400 — 5 pack", cat:"Film", price:46, desc:"Classic high-contrast black and white stock with a wide latitude for pushing and pulling.", specs:{"ISO":"400","Rolls":"5","Type":"B&W negative"}},
+    {id:9, name:"Ektachrome Slide 100", cat:"Film", price:22, desc:"Fine-grain colour slide film with punchy, saturated tones — best shot in bright light.", specs:{"ISO":"100","Rolls":"1","Type":"Colour reversal"}},
+    {id:10, name:"Night Tungsten 800", cat:"Film", price:19, desc:"Tungsten-balanced stock built for shooting under streetlights and neon without heavy colour cast.", specs:{"ISO":"800","Rolls":"1","Type":"Colour negative"}},
+    {id:11, name:"Delta Pro 3200", cat:"Film", price:14, desc:"Ultra-fast black and white film for low-light interiors and grainy, moody night frames.", specs:{"ISO":"3200","Rolls":"1","Type":"B&W negative"}},
+    {id:12, name:"Redscale Experimental 200", cat:"Film", price:16, desc:"Film loaded backwards through the camera for warm, unpredictable red and orange casts.", specs:{"ISO":"200 (rated)","Rolls":"1","Type":"Colour negative"}},
+    {id:13, name:"Orchard 120 Colour", cat:"Film", price:26, desc:"Medium-format colour stock with soft contrast, well suited to portraits and still life.", specs:{"ISO":"160","Rolls":"1","Format":"120"}},
+
+    {id:14, name:"Print Easel 8×10", cat:"Darkroom", price:64, desc:"Four-blade adjustable easel for borders and full-bleed prints up to 8×10 inches.", specs:{"Max size":"8×10 in","Material":"Steel + vinyl"}},
+    {id:15, name:"Steel Reel Developing Tank", cat:"Darkroom", price:52, desc:"Daylight tank with two stainless reels, for developing two rolls of 35mm at once.", specs:{"Capacity":"2×35mm reels","Material":"Stainless steel"}},
+    {id:16, name:"Amber Safelight Lamp", cat:"Darkroom", price:38, desc:"Clip-on darkroom safelight with an amber filter safe for handling most black and white paper.", specs:{"Filter":"Amber (OC)","Power":"USB-C"}},
+    {id:17, name:"Fixer & Developer Kit", cat:"Darkroom", price:34, desc:"A starter kit of concentrated developer and fixer, enough for roughly twelve rolls.", specs:{"Yield":"~12 rolls","Type":"Concentrate"}},
+    {id:18, name:"Contact Print Frame", cat:"Darkroom", price:28, desc:"Hinged glass frame for making contact sheets straight from a full roll of negatives.", specs:{"Glass":"Anti-newton","Size":"8×10 in"}},
+    {id:19, name:"Grain Focuser", cat:"Darkroom", price:31, desc:"Folding focus finder that magnifies film grain on the easel for tack-sharp enlarger focus.", specs:{"Magnification":"8x","Mirror":"First-surface"}},
+
+    {id:20, name:"Canvas Camera Satchel", cat:"Field Gear", price:96, desc:"Waxed canvas shoulder bag with a padded insert sized for one body and two lenses.", specs:{"Material":"Waxed canvas","Capacity":"1 body + 2 lenses"}},
+    {id:21, name:"Leather Neck Strap", cat:"Field Gear", price:42, desc:"Full-grain leather strap that softens with wear, hand-stitched to standard lugs.", specs:{"Material":"Full-grain leather","Length":"Adjustable"}},
+    {id:22, name:"Lens Cleaning Kit", cat:"Field Gear", price:18, desc:"Blower, microfibre cloth, and cleaning fluid in a tin small enough for a jacket pocket.", specs:{"Contents":"3 pieces","Size":"Pocket tin"}},
+    {id:23, name:"Waterproof Film Case", cat:"Field Gear", price:24, desc:"Holds up to 20 rolls of 35mm film, sealed against humidity for long field trips.", specs:{"Capacity":"20 rolls","Seal":"Waterproof"}}
+  ];
+
+  const CATEGORIES = ["Cameras","Film","Darkroom","Field Gear"];
+
+  // ---------- State ----------
+  let state = {
+    query: "",
+    cats: new Set(),
+    maxPrice: 520,
+    sort: "featured",
+    cart: {} // id -> qty
+  };
+
+  try {
+    const saved = localStorage.getItem('nomad-cart');
+    if (saved) state.cart = JSON.parse(saved);
+  } catch (e) { /* storage unavailable, continue with empty cart */ }
+
+  function saveCart() {
+    try { localStorage.setItem('nomad-cart', JSON.stringify(state.cart)); } catch(e) {}
+  }
+
+  // ---------- Render: category filters ----------
+  function renderCategoryFilters() {
+    const wrap = document.getElementById('categoryFilters');
+    wrap.innerHTML = CATEGORIES.map(c => {
+      const count = PRODUCTS.filter(p => p.cat === c).length;
+      const checked = state.cats.has(c) ? 'checked' : '';
+      const active = state.cats.has(c) ? 'active' : '';
+      return `<label class="filter-row ${active}">
+        <span class="label-inline"><input type="checkbox" data-cat="${c}" ${checked}> ${c}</span>
+        <span class="count">${count}</span>
+      </label>`;
+    }).join('');
+    wrap.querySelectorAll('input[type=checkbox]').forEach(cb => {
+      cb.addEventListener('change', e => {
+        const c = e.target.getAttribute('data-cat');
+        if (e.target.checked) state.cats.add(c); else state.cats.delete(c);
+        renderCategoryFilters();
+        renderGrid();
+      });
+    });
+  }
+
+  // ---------- Filtering / sorting ----------
+  function getFiltered() {
+    let list = PRODUCTS.filter(p => {
+      if (state.cats.size && !state.cats.has(p.cat)) return false;
+      if (p.price > state.maxPrice) return false;
+      if (state.query) {
+        const q = state.query.toLowerCase();
+        if (!p.name.toLowerCase().includes(q) && !p.cat.toLowerCase().includes(q) && !p.desc.toLowerCase().includes(q)) return false;
+      }
+      return true;
+    });
+    if (state.sort === 'price-asc') list = list.slice().sort((a,b)=>a.price-b.price);
+    else if (state.sort === 'price-desc') list = list.slice().sort((a,b)=>b.price-a.price);
+    else if (state.sort === 'name-asc') list = list.slice().sort((a,b)=>a.name.localeCompare(b.name));
+    return list;
+  }
+
+  function productThumb(p) {
+    return `<div class="thumb" style="background: linear-gradient(155deg, var(--card), var(--paper));">
+      <span style="color:${catAccent[p.cat]}">${catIcon[p.cat]}</span>
+    </div>`;
+  }
+
+  // ---------- Render: grid ----------
+  function renderGrid() {
+    const grid = document.getElementById('productGrid');
+    const list = getFiltered();
+    document.getElementById('resultCount').textContent = list.length;
+    if (!list.length) {
+      grid.innerHTML = `<div class="empty-state"><h3>No gear matches those filters</h3><p>Try widening the price range or clearing a category.</p></div>`;
+      return;
+    }
+    grid.innerHTML = list.map(p => `
+      <div class="pcard" data-id="${p.id}">
+        ${productThumb(p)}
+        <div class="body">
+          <div class="cat-label">${p.cat.toUpperCase()}</div>
+          <div class="pname">${p.name}</div>
+          <div class="price-row">
+            <span class="price">$${p.price}</span>
+            <button class="add-btn" data-add="${p.id}" aria-label="Add to cart">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.pcard').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.add-btn')) return;
+        openProduct(Number(card.getAttribute('data-id')));
+      });
+    });
+    grid.querySelectorAll('[data-add]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        addToCart(Number(btn.getAttribute('data-add')));
+        pulseCart();
+      });
+    });
+  }
+
+  function pulseCart() {
+    const el = document.getElementById('cartOpenBtn');
+    el.style.transform = 'scale(1.06)';
+    setTimeout(()=> el.style.transform = 'scale(1)', 140);
+  }
+
+  // ---------- Cart logic ----------
+  function addToCart(id, qty) {
+    qty = qty || 1;
+    state.cart[id] = (state.cart[id] || 0) + qty;
+    saveCart();
+    renderCartCount();
+    renderDrawer();
+  }
+  function setQty(id, qty) {
+    if (qty <= 0) { delete state.cart[id]; }
+    else { state.cart[id] = qty; }
+    saveCart();
+    renderCartCount();
+    renderDrawer();
+  }
+  function removeFromCart(id) {
+    delete state.cart[id];
+    saveCart();
+    renderCartCount();
+    renderDrawer();
+  }
+  function cartTotal() {
+    return Object.entries(state.cart).reduce((sum, [id, qty]) => {
+      const p = PRODUCTS.find(pp => pp.id === Number(id));
+      return sum + (p ? p.price * qty : 0);
+    }, 0);
+  }
+  function cartItemCount() {
+    return Object.values(state.cart).reduce((a,b)=>a+b,0);
+  }
+  function renderCartCount() {
+    document.getElementById('cartCount').textContent = cartItemCount();
+  }
+
+  // ---------- Render: drawer ----------
+  function renderDrawer() {
+    const el = document.getElementById('drawerContent');
+    const entries = Object.entries(state.cart);
+    const closeBtnSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
+
+    if (!entries.length) {
+      el.innerHTML = `
+        <div class="drawer-head"><h2>Your cart</h2><button id="drawerClose">${closeBtnSvg}</button></div>
+        <div class="drawer-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L5 2H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+          <div>Your cart is empty.<br>Add some film to get started.</div>
+        </div>`;
+      document.getElementById('drawerClose').addEventListener('click', closeCart);
+      return;
+    }
+
+    const rows = entries.map(([id, qty]) => {
+      const p = PRODUCTS.find(pp => pp.id === Number(id));
+      if (!p) return '';
+      return `
+        <div class="cart-row">
+          <div class="thumb-sm"><span style="color:${catAccent[p.cat]}">${catIcon[p.cat]}</span></div>
+          <div class="meta">
+            <div class="nm">${p.name}</div>
+            <div class="pr">$${p.price}</div>
+            <div class="qty-ctrl">
+              <button data-dec="${p.id}">−</button>
+              <span class="qn">${qty}</span>
+              <button data-inc="${p.id}">+</button>
+            </div>
+            <button class="remove-btn" data-remove="${p.id}">Remove</button>
+          </div>
+        </div>`;
+    }).join('');
+
+    const subtotal = cartTotal();
+    const shipping = subtotal > 0 ? 8 : 0;
+    const total = subtotal + shipping;
+
+    el.innerHTML = `
+      <div class="drawer-head"><h2>Your cart</h2><button id="drawerClose">${closeBtnSvg}</button></div>
+      <div class="drawer-items">${rows}</div>
+      <div class="drawer-foot">
+        <div class="row"><span>Subtotal</span><span>$${subtotal.toFixed(2)}</span></div>
+        <div class="row"><span>Shipping</span><span>$${shipping.toFixed(2)}</span></div>
+        <div class="row total"><span>Total</span><span>$${total.toFixed(2)}</span></div>
+        <button class="checkout-btn" id="checkoutBtn">Place order</button>
+        <div class="demo-note">Demo store — no real payment is processed.</div>
+      </div>`;
+
+    document.getElementById('drawerClose').addEventListener('click', closeCart);
+    document.getElementById('checkoutBtn').addEventListener('click', showConfirm);
+    el.querySelectorAll('[data-inc]').forEach(b => b.addEventListener('click', () => setQty(Number(b.getAttribute('data-inc')), (state.cart[b.getAttribute('data-inc')]||0)+1)));
+    el.querySelectorAll('[data-dec]').forEach(b => b.addEventListener('click', () => {
+      const id = Number(b.getAttribute('data-dec'));
+      setQty(id, (state.cart[id]||0)-1);
+    }));
+    el.querySelectorAll('[data-remove]').forEach(b => b.addEventListener('click', () => removeFromCart(Number(b.getAttribute('data-remove')))));
+  }
+
+  function showConfirm() {
+    const el = document.getElementById('drawerContent');
+    const orderId = 'NSC-' + Math.floor(10000 + Math.random()*89999);
+    const closeBtnSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
+    el.innerHTML = `
+      <div class="drawer-head"><h2>Order placed</h2><button id="drawerClose">${closeBtnSvg}</button></div>
+      <div class="confirm-view">
+        <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg></div>
+        <h3>Thanks — this is a demo order.</h3>
+        <p>In a real store this is where checkout would hand off to a payment provider. Nothing was charged.</p>
+        <div class="order-id">Order ${orderId}</div>
+        <button id="confirmDone">Back to shop</button>
+      </div>`;
+    document.getElementById('drawerClose').addEventListener('click', closeCart);
+    document.getElementById('confirmDone').addEventListener('click', () => {
+      state.cart = {};
+      saveCart();
+      renderCartCount();
+      closeCart();
+    });
+  }
+
+  function openCart() {
+    document.getElementById('cartDrawer').classList.add('show');
+    document.getElementById('cartScrim').classList.add('show');
+    renderDrawer();
+  }
+  function closeCart() {
+    document.getElementById('cartDrawer').classList.remove('show');
+    document.getElementById('cartScrim').classList.remove('show');
+  }
+
+  // ---------- Product modal ----------
+  function openProduct(id) {
+    const p = PRODUCTS.find(pp => pp.id === id);
+    if (!p) return;
+    const specRows = Object.entries(p.specs).map(([k,v]) => `<li><span>${k}</span><span>${v}</span></li>`).join('');
+    document.getElementById('productModal').innerHTML = `
+      <div class="visual" style="background: linear-gradient(155deg, var(--card), var(--paper-hi));">
+        <button class="close-x" id="modalClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        <span style="color:${catAccent[p.cat]}">${catIcon[p.cat]}</span>
+      </div>
+      <div class="info">
+        <div class="cat-label">${p.cat.toUpperCase()}</div>
+        <h2>${p.name}</h2>
+        <div class="price">$${p.price}</div>
+        <p class="desc">${p.desc}</p>
+        <ul class="spec-list">${specRows}</ul>
+        <button class="add-cta" id="modalAdd">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L5 2H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+          Add to cart
+        </button>
+      </div>`;
+    document.getElementById('productOverlay').classList.add('show');
+    document.getElementById('modalClose').addEventListener('click', closeProduct);
+    document.getElementById('modalAdd').addEventListener('click', () => { addToCart(p.id); closeProduct(); openCart(); });
+  }
+  function closeProduct() {
+    document.getElementById('productOverlay').classList.remove('show');
+  }
+
+  window.jumpToCategory = function(c) {
+    state.cats = new Set([c]);
+    renderCategoryFilters();
+    renderGrid();
+    document.querySelector('.shop').scrollIntoView({behavior:'smooth', block:'start'});
+  };
+
+  // ---------- Wire up top-level controls ----------
+  document.getElementById('searchInput').addEventListener('input', e => {
+    state.query = e.target.value;
+    renderGrid();
+  });
+  document.getElementById('sortSelect').addEventListener('change', e => {
+    state.sort = e.target.value;
+    renderGrid();
+  });
+  document.getElementById('priceRange').addEventListener('input', e => {
+    state.maxPrice = Number(e.target.value);
+    document.getElementById('priceVal').textContent = state.maxPrice >= 520 ? 'Up to $520' : `Up to $${state.maxPrice}`;
+    renderGrid();
+  });
+  document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+    state.cats = new Set();
+    state.maxPrice = 520;
+    state.query = "";
+    document.getElementById('searchInput').value = "";
+    document.getElementById('priceRange').value = 520;
+    document.getElementById('priceVal').textContent = 'Up to $520';
+    renderCategoryFilters();
+    renderGrid();
+  });
+  document.getElementById('cartOpenBtn').addEventListener('click', openCart);
+  document.getElementById('cartScrim').addEventListener('click', closeCart);
+  document.getElementById('productOverlay').addEventListener('click', (e) => {
+    if (e.target.id === 'productOverlay') closeProduct();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeCart(); closeProduct(); }
+  });
+
+  // ---------- Init ----------
+  renderCategoryFilters();
+  renderGrid();
+  renderCartCount();
+
+})();
+</script>
+</body>
+</html>
